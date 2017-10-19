@@ -1,27 +1,48 @@
 package br.com.xyinc.controller;
 
 import br.com.xyinc.model.BusinessDomain;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.xyinc.service.BusinessDomainService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
 /**
  * Created by manuele on 18/10/17.
  */
 @RestController
-@RequestMapping("/{businessDomainId}")
+@RequestMapping("/{businessDomainName}")
 public class BusinessDomainController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private BusinessDomainService businessDomainService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public BusinessDomain readBusinessDomain(@PathVariable String businessDomainId) {
-        return new BusinessDomain(counter.incrementAndGet(),
-                String.format(template, businessDomainId));
+    public BusinessDomain readBusinessDomainByName(@PathVariable String businessDomainName) {
+        return businessDomainService.getBusinessDomainByName(businessDomainName);
+    }
+
+//    @RequestMapping(method = RequestMethod.GET, value = "/{businessDomainId}")
+//    public BusinessDomain readBusinessDomainByNameAndId(@PathVariable String businessDomainName,
+//                                                 @PathVariable Long businessDomainId) {
+//        return businessDomainService.getBusinessDomainByName(businessDomainName);
+//    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String createBusinessDomain(@PathVariable String businessDomainName)
+    {
+        try
+        {
+            BusinessDomain businessDomain = new BusinessDomain();
+            businessDomain.setName(businessDomainName);
+            businessDomainService.addBusinessDomain(businessDomain);
+            return "ok!";
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
 }

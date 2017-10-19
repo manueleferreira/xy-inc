@@ -1,12 +1,10 @@
 # xy-inc
-create br.com.xyinc.model project backend
-
-Funcionalidades:
-* Página inicial da aplicação
- * *URL*
+Aplicação que, dado um modelo de domínio com nome e 
+atributos, realiza a criação e disponibilização de um
+conjunto de serviços REST.
 
 ## Arquitetura
-Arquitetura baseada na linguagem Java
+Arquitetura baseada na linguagem Java.
 
 Tecnologias:
 * Java: Linguagem base de desenvolvimento

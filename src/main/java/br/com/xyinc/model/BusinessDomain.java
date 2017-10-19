@@ -16,26 +16,21 @@ public class BusinessDomain implements Serializable {
 
     @Id
     @GeneratedValue
-    private final long id;
+    private Long id;
 
     @Column(nullable = false)
-    private final String content;
+    private String name;
 
-    public BusinessDomain(long id, String content) {
-        this.id = id;
-        this.content = content;
+    public String getName() {
+        return name;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return getContent();
+        return getName();
     }
 }
