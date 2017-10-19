@@ -1,6 +1,7 @@
 package br.com.xyinc.service;
 
 import br.com.xyinc.model.BusinessDomain;
+import br.com.xyinc.model.BusinessDomainInstance;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,9 +27,18 @@ public class BusinessDomainServiceImpl implements BusinessDomainService {
     }
 
     @Override
-    public void addBusinessDomain(BusinessDomain businessDomain)
+    public BusinessDomainInstance getBusinessDomainInstancesById(String businessDomainName,
+                                                          Long businessDomainInstanceId)
     {
-        this.businessDomainRepository.save(businessDomain);
+        BusinessDomain businessDomain = this.businessDomainRepository.findByName(businessDomainName);
+        return this.businessDomainRepository.findByBusinessModelIdAndInstanceId(businessDomain.getId(),
+                businessDomainInstanceId);
+    }
+
+    @Override
+    public void addBusinessDomainInstance(BusinessDomainInstance businessDomainInstance)
+    {
+        this.businessDomainRepository.save(BusinessDomainInstance);
     }
 
     @Transactional(readOnly = true)

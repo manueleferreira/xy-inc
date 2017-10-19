@@ -1,6 +1,10 @@
 package br.com.xyinc.service;
 
 import br.com.xyinc.model.BusinessDomain;
+import br.com.xyinc.model.BusinessDomainAtt;
+import br.com.xyinc.model.BusinessDomainInstance;
+import br.com.xyinc.model.BusinessDomainInstanceAtt;
+
 import java.util.List;
 
 /**
@@ -10,8 +14,10 @@ public interface BusinessDomainService {
 
     BusinessDomain getBusinessDomainByName(String name);
 
-    void addBusinessDomain(BusinessDomain BusinessDomain);
+    BusinessDomainInstance getBusinessDomainInstancesById(String businessDomainName, Long businessDomainInstanceId);
 
-    List<BusinessDomain> getAllBusinessDomain();
-    
+    void addBusinessDomainInstance(BusinessDomainInstance businessDomainInstance,
+                                   List<BusinessDomainInstanceAtt> businessDomainInstanceAtt);
+
+
 }

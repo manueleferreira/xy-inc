@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by manuele on 18/10/17.
  */
 @Entity
-public class BusinessDomainAtt implements Serializable {
+public class BusinessDomainInstanceAtt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
