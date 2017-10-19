@@ -13,5 +13,5 @@ public interface BusinessDomainInstanceRepository extends JpaRepository<Business
 
     List<BusinessDomainInstance> findByBusinessDomain(BusinessDomain businessDomain);
 
-    BusinessDomainInstance findByBusinessDomainAndId(BusinessDomain businessDomain, Long id);
+    BusinessDomainInstance findById(Long id);
 }

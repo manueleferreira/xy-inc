@@ -34,9 +34,7 @@ public class BusinessDomainInstanceController {
     @RequestMapping(method = RequestMethod.GET, value = "/{businessDomainInstanceId}")
     public BusinessDomainInstance getBusinessDomainInstanceByNameAndId(@PathVariable String businessDomainName,
                                                                 @PathVariable Long businessDomainInstanceId) {
-        BusinessDomain businessDomain = businessDomainService.getBusinessDomainByName(businessDomainName);
-        return businessDomainInstanceService.getBusinessDomainInstanceByNameAndId(businessDomain,
-                businessDomainInstanceId);
+        return businessDomainInstanceService.getBusinessDomainInstanceById(businessDomainInstanceId);
     }
 
 //    @RequestMapping(method = RequestMethod.POST)

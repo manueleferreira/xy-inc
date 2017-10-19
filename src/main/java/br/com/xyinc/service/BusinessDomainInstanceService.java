@@ -12,7 +12,6 @@ public interface BusinessDomainInstanceService {
 
     List<BusinessDomainInstance> getAllInstancesByBusinessDomain(BusinessDomain businessDomain);
 
-    BusinessDomainInstance getBusinessDomainInstanceByNameAndId(BusinessDomain businessDomain,
-                                                                Long businessDomainInstanceId);
+    BusinessDomainInstance getBusinessDomainInstanceById(Long businessDomainInstanceId);
 
 }
