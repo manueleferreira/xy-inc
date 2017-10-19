@@ -1,5 +1,8 @@
 package br.com.xyinc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,43 +13,46 @@ import java.io.Serializable;
 public class BusinessDomainInstanceAtt implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private String attValue;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ID")
-    private BusinessDomain businessDomain;
-
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_INSTANCE_ID")
     private BusinessDomainInstance businessDomainInstance;
 
+    private BusinessDomainAtt businessDomainAtt;
+
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ATT_ID")
-    private BusinessDomainInstanceAtt businessDomainInstanceAtt;
-
-    public BusinessDomain getBusinessDomain() {
-        return businessDomain;
-    }
-
+    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_INSTANCE_ID")
     public BusinessDomainInstance getBusinessDomainInstance() {
         return businessDomainInstance;
     }
 
-    public BusinessDomainInstanceAtt getBusinessDomainInstanceAtt() {
-        return businessDomainInstanceAtt;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ATT_ID")
+    public BusinessDomainAtt getbusinessDomainAtt() {
+        return businessDomainAtt;
     }
 
+    @JsonIgnore
+    @Column(nullable = false)
     public String getAttValue() {
         return attValue;
     }
 
-    public void setBusinessDomain(BusinessDomain businessDomain) {
-        this.businessDomain = businessDomain;
+    @Transient
+    @JsonProperty("att")
+    public String getAttNameAndValue() {
+        String attName = getbusinessDomainAtt().getName();
+        return String.format("%s : %s", attName, getAttValue());
+    }
+
+    @JsonIgnore
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
     }
 
     public void setAttValue(String attValue) {
@@ -57,12 +63,11 @@ public class BusinessDomainInstanceAtt implements Serializable {
         this.businessDomainInstance = businessDomainInstance;
     }
 
-
-    public void setBusinessDomainInstanceAtt(BusinessDomainInstanceAtt businessDomainInstanceAtt) {
-        this.businessDomainInstanceAtt = businessDomainInstanceAtt;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public void setBusinessDomainAtt(BusinessDomainAtt businessDomainAtt) {
+        this.businessDomainAtt = businessDomainAtt;
     }
 }

@@ -7,34 +7,38 @@ import java.io.Serializable;
  * Created by manuele on 18/10/17.
  */
 @Entity
-public class BusinessDomainInstanceAtt implements Serializable {
+public class BusinessDomainAtt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String type;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ID")
     private BusinessDomain businessDomain;
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ID")
     public BusinessDomain getBusinessDomain() {
         return businessDomain;
     }
 
+    @Column(nullable = false)
     public String getType() {
         return type;
+    }
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
     }
 
     public void setName(String name) {
@@ -49,12 +53,7 @@ public class BusinessDomainInstanceAtt implements Serializable {
         this.type = type;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public String toString() {
-        return getName();
+    public void setId(Long id) {
+        this.id = id;
     }
 }
