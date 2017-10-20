@@ -14,4 +14,6 @@ public interface BusinessDomainInstanceService {
 
     BusinessDomainInstance getBusinessDomainInstanceById(Long businessDomainInstanceId);
 
+    void createBusinessDomainInstance(BusinessDomainInstance businessDomainInstance);
+
 }

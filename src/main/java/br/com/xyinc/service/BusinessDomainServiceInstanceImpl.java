@@ -21,11 +21,11 @@ public class BusinessDomainServiceInstanceImpl implements BusinessDomainInstance
         this.businessDomainInstanceRepository = instance;
     }
 
-//    @Override
-//    public void addBusinessDomainInstance(BusinessDomainInstance businessDomainInstance)
-//    {
-//        this.businessDomainRepository.save(BusinessDomainInstance);
-//    }
+    @Override
+    public void createBusinessDomainInstance(BusinessDomainInstance businessDomainInstance)
+    {
+        this.businessDomainInstanceRepository.save(businessDomainInstance);
+    }
 
     @Transactional(readOnly = true)
     public List<BusinessDomainInstance> getAllInstancesByBusinessDomain(BusinessDomain businessDomain)

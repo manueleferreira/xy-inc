@@ -56,14 +56,18 @@ public class BusinessDomainInstanceControllerTest {
                         equalTo("{\"id\":1,\"attributes\":[{\"att\":\"name : sabonete\"}]}")));
     }
 
-//    @Test
-//    public void createRunInstanceByName() throws Exception
-//    {
-//        mvc.perform(MockMvcRequestBuilders.get("/api/createruninstance?name=222")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string(
-//                        equalTo("[{\"name\":\"exo\"},{\"name\":\"exo2\"},{\"name\":\"222\"}]")));
-//    }
+    @Test
+    public void createProduct() throws Exception
+    {
+        mvc.perform(MockMvcRequestBuilders.post("/product")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mvc.perform(MockMvcRequestBuilders.get("/product/2")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        equalTo("{\"id\":2,\"attributes\":[]}")));
+    }
 
 }

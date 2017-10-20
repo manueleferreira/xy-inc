@@ -37,30 +37,21 @@ public class BusinessDomainInstanceController {
         return businessDomainInstanceService.getBusinessDomainInstanceById(businessDomainInstanceId);
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void createBusinessDomain(@PathVariable String businessDomainName,
-//                                     @PathVariable String name,
-//                                     @PathVariable String type)
-//    {
-//        try
-//        {
-//            BusinessDomain businessDomain = businessDomainService.getBusinessDomainByName(businessDomainName);
-//            BusinessDomainInstance businessDomainInstance = new BusinessDomainInstance();
-//            businessDomainInstance.setBusinessDomain(businessDomain);
-//
-//            BusinessDomainInstanceAtt businessDomainAtt = new BusinessDomainInstanceAtt();
-//            businessDomainAtt.setBusinessDomain(businessDomain);
-//            businessDomainAtt.setName(name);
-//            businessDomainAtt.setType(type);
-//
-//            businessDomainService.addBusinessDomainInstance(businessDomainInstance,
-//                    Stream.of(businessDomainAtt)
-//                            .collect(Collectors.toCollection(ArrayList::new)));
-//        }
-//        catch (Exception ex)
-//        {
-//            ex.printStackTrace();
-//        }
-//    }
+    @RequestMapping(method = RequestMethod.POST)
+    public void createBusinessDomainInstance(@PathVariable String businessDomainName)
+    {
+        try
+        {
+            BusinessDomain businessDomain = businessDomainService.getBusinessDomainByName(businessDomainName);
+            BusinessDomainInstance businessDomainInstance = new BusinessDomainInstance();
+            businessDomainInstance.setBusinessDomain(businessDomain);
+
+            businessDomainInstanceService.createBusinessDomainInstance(businessDomainInstance);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
 
 }
