@@ -37,4 +37,10 @@ public class BusinessDomainServiceInstanceImpl implements BusinessDomainInstance
     public BusinessDomainInstance getBusinessDomainInstanceById(Long businessDomainInstanceId) {
         return this.businessDomainInstanceRepository.findById(businessDomainInstanceId);
     }
+
+    @Transactional(readOnly = true)
+    public void deleteBusinessDomainInstanceById(Long businessDomainInstanceId) {
+        this.businessDomainInstanceRepository.delete(businessDomainInstanceId);
+    }
+
 }

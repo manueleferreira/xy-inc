@@ -32,7 +32,7 @@ public class BusinessDomainInstanceController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{businessDomainInstanceId}")
-    public BusinessDomainInstance getBusinessDomainInstanceByNameAndId(@PathVariable String businessDomainName,
+    public BusinessDomainInstance getBusinessDomainInstanceById(@PathVariable String businessDomainName,
                                                                 @PathVariable Long businessDomainInstanceId) {
         return businessDomainInstanceService.getBusinessDomainInstanceById(businessDomainInstanceId);
     }
@@ -52,6 +52,12 @@ public class BusinessDomainInstanceController {
         {
             ex.printStackTrace();
         }
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{businessDomainInstanceId}")
+    public void deleteBusinessDomainInstanceById(@PathVariable String businessDomainName,
+                                                                       @PathVariable Long businessDomainInstanceId) {
+        businessDomainInstanceService.deleteBusinessDomainInstanceById(businessDomainInstanceId);
     }
 
 }

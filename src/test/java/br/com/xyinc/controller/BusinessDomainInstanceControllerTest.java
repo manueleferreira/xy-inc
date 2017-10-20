@@ -2,6 +2,7 @@ package br.com.xyinc.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -68,6 +69,18 @@ public class BusinessDomainInstanceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         equalTo("{\"id\":2,\"attributes\":[]}")));
+    }
+
+    @Test
+    public void deleteProduct() throws Exception
+    {
+        mvc.perform(MockMvcRequestBuilders.post("/product")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mvc.perform(MockMvcRequestBuilders.delete("/product/2")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
 }
