@@ -27,7 +27,7 @@ public class BusinessDomainInstanceRepositoryTest {
     private BusinessDomainInstanceRepository businessDomainInstanceRepository;
 
     @Test
-    public void findByIdThenReturnBusinessDomainInstance() {
+    public void whenFindByIdThenReturnBusinessDomainInstance() {
         BusinessDomain businessDomain = new BusinessDomain();
         businessDomain.setName("pencil");
         entityManager.persist(businessDomain);
@@ -45,7 +45,7 @@ public class BusinessDomainInstanceRepositoryTest {
     }
 
     @Test
-    public void findByBusinessDomainThenReturnBusinessDomainInstance() {
+    public void whenFindByBusinessDomainThenReturnBusinessDomainInstance() {
         BusinessDomain businessDomain = new BusinessDomain();
         businessDomain.setName("pencil");
         entityManager.persist(businessDomain);
