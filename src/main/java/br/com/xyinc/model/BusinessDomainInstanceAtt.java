@@ -28,25 +28,25 @@ public class BusinessDomainInstanceAtt implements Serializable {
         return businessDomainInstance;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ATT_ID")
     public BusinessDomainAtt getbusinessDomainAtt() {
         return businessDomainAtt;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     @Column(nullable = false)
     public String getAttValue() {
         return attValue;
     }
 
-    @Transient
-    @JsonProperty("att")
-    public String getAttNameAndValue() {
-        String attName = getbusinessDomainAtt().getName();
-        return String.format("%s : %s", attName, getAttValue());
-    }
+//    @Transient
+//    @JsonProperty("att")
+//    public String getAttNameAndValue() {
+//        String attName = getbusinessDomainAtt().getName();
+//        return String.format("%s : %s", attName, getAttValue());
+//    }
 
     @JsonIgnore
     @Id

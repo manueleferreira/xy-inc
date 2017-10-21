@@ -1,9 +1,12 @@
 package br.com.xyinc.controller;
 
 import br.com.xyinc.model.BusinessDomain;
+import br.com.xyinc.model.BusinessDomainAtt;
 import br.com.xyinc.model.BusinessDomainInstance;
+import br.com.xyinc.model.BusinessDomainInstanceAtt;
 import br.com.xyinc.service.BusinessDomainInstanceService;
 import br.com.xyinc.service.BusinessDomainService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +25,6 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -96,12 +98,29 @@ public class BusinessDomainInstanceControllerTest {
                 .andExpect(jsonPath("$.id", is((int)instance.getId())));
     }
 
+    private byte[] toJson(Object r) throws Exception {
+        ObjectMapper map = new ObjectMapper();
+        return map.writeValueAsString(r).getBytes();
+    }
+
     @Test
     public void givenBusinessModelWhenCreateInstanceThenReturnJsonObject() throws Exception
     {
+        BusinessDomainAtt modeltt = new BusinessDomainAtt();
+        modeltt.setName("name");
+        modeltt.setType("String");
+        modeltt.setBusinessDomain(businessDomain);
+
+        BusinessDomainInstanceAtt att = new BusinessDomainInstanceAtt();
+        att.setAttValue("Maria");
+        att.setBusinessDomainAtt(modeltt);
+
         BusinessDomainInstance created = new BusinessDomainInstance();
         created.setBusinessDomain(businessDomain);
         created.setId(id);
+        created.setBusinessDomainInstanceAtts(Arrays.asList(att));
+
+        byte[] createdJson = toJson(created);
 
         given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
         given(instanceService.createBusinessDomainInstance(
@@ -109,11 +128,14 @@ public class BusinessDomainInstanceControllerTest {
                 .willReturn(created);
 
         mvc.perform(MockMvcRequestBuilders.post(String.format("/%s", businessModelName))
-                .accept(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsBytes(new CreateClientRequest("Foo")))
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", notNullValue()));
+                    .content(createdJson)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.id", notNullValue()))
+                    .andExpect(jsonPath("$.attributes", hasSize(1)))
+                    .andExpect(jsonPath("$.attributes[0].businessDomainAtt.name", is(modeltt.getName())))
+                    .andExpect(jsonPath("$.attributes[0].attValue", is(att.getAttValue())));
     }
 
     @Test
@@ -124,7 +146,7 @@ public class BusinessDomainInstanceControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.delete(String.format("/%s/%s", businessModelName, id))
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
 }
