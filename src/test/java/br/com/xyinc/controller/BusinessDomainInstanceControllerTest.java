@@ -1,85 +1,129 @@
 package br.com.xyinc.controller;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import br.com.xyinc.model.BusinessDomain;
+import br.com.xyinc.model.BusinessDomainInstance;
+import br.com.xyinc.service.BusinessDomainInstanceService;
+import br.com.xyinc.service.BusinessDomainService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by manuele on 19/10/17.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(BusinessDomainInstanceController.class)
 public class BusinessDomainInstanceControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
-    @Test
-    public void defaultRequest() throws Exception
-    {
-        mvc.perform(MockMvcRequestBuilders.get("/product"))
-                .andExpect(MockMvcResultMatchers.status().is(200));
+    @MockBean
+    private BusinessDomainInstanceService instanceService;
 
-        mvc.perform(MockMvcRequestBuilders.get("/product/1"))
-                .andExpect(MockMvcResultMatchers.status().is(200));
+    @MockBean
+    private BusinessDomainService service;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+    private String businessModelName;
+    private long id;
+    private BusinessDomainInstance instance;
+    private BusinessDomain businessDomain;
+
+    @Before
+    public void setUp(){
+        id = 1L;
+        businessModelName = "product";
+
+        businessDomain = new BusinessDomain();
+        businessDomain.setId(id);
+        businessDomain.setName("pencil");
+
+        instance = new BusinessDomainInstance();
+        instance.setId(id);
+        instance.setBusinessDomain(businessDomain);
     }
 
     @Test
-    public void getAllBusinessDomainInstance() throws Exception
+    public void givenInstancesWhenGetInstancesThenReturnJsonArray()
+            throws Exception
     {
-        mvc.perform(MockMvcRequestBuilders.get("/product")
-                .accept(MediaType.APPLICATION_JSON))
+        List<BusinessDomainInstance> instances = Arrays.asList(instance);
+
+        given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
+        given(instanceService.getAllInstancesByBusinessDomain(businessDomain))
+                .willReturn(instances);
+
+        mvc.perform(MockMvcRequestBuilders.get(String.format("/%s", businessModelName))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(
-                        equalTo("[{\"id\":1,\"attributes\":[{\"att\":\"name : sabonete\"}]}]")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id", is((int)instance.getId())));
     }
 
     @Test
-    public void getProductById() throws Exception
+    public void givenInstanceWhenGetInstanceThenReturnJsonObject()
+            throws Exception
     {
-        mvc.perform(MockMvcRequestBuilders.get("/product/1")
-                .accept(MediaType.APPLICATION_JSON))
+        given(instanceService.getBusinessDomainInstanceById(id)).willReturn(instance);
+
+        mvc.perform(MockMvcRequestBuilders.get(String.format("/%s/%s", businessModelName, instance.getId()))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(
-                        equalTo("{\"id\":1,\"attributes\":[{\"att\":\"name : sabonete\"}]}")));
+                .andExpect(jsonPath("$.id", is((int)instance.getId())));
     }
 
     @Test
-    public void createProduct() throws Exception
+    public void givenBusinessModelWhenCreateInstanceThenReturnJsonObject() throws Exception
     {
-        mvc.perform(MockMvcRequestBuilders.post("/product")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        BusinessDomainInstance created = new BusinessDomainInstance();
+        created.setBusinessDomain(businessDomain);
+        created.setId(id);
 
-        mvc.perform(MockMvcRequestBuilders.get("/product/2")
-                .accept(MediaType.APPLICATION_JSON))
+        given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
+        given(instanceService.createBusinessDomainInstance(
+                Matchers.any(BusinessDomainInstance.class)))
+                .willReturn(created);
+
+        mvc.perform(MockMvcRequestBuilders.post(String.format("/%s", businessModelName))
+                .accept(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsBytes(new CreateClientRequest("Foo")))
+                )
                 .andExpect(status().isOk())
-                .andExpect(content().string(
-                        equalTo("{\"id\":2,\"attributes\":[]}")));
+                .andExpect(jsonPath("$.id", notNullValue()));
     }
 
     @Test
-    public void deleteProduct() throws Exception
+    public void givenIdWhenDeleteInstanceThenReturnOk() throws Exception
     {
-        mvc.perform(MockMvcRequestBuilders.post("/product")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
+        doNothing().when(instanceService).deleteBusinessDomainInstanceById(id);
 
-        mvc.perform(MockMvcRequestBuilders.delete("/product/2")
-                .accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.delete(String.format("/%s/%s", businessModelName, id))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

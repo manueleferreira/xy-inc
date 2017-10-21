@@ -11,7 +11,7 @@ public class BusinessDomainAtt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -37,7 +37,7 @@ public class BusinessDomainAtt implements Serializable {
 
     @Id
     @GeneratedValue
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -53,7 +53,7 @@ public class BusinessDomainAtt implements Serializable {
         this.type = type;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

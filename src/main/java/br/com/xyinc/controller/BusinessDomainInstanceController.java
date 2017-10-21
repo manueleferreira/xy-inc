@@ -38,20 +38,23 @@ public class BusinessDomainInstanceController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void createBusinessDomainInstance(@PathVariable String businessDomainName)
+    public BusinessDomainInstance createBusinessDomainInstance(@PathVariable String businessDomainName)
     {
         try
         {
             BusinessDomain businessDomain = businessDomainService.getBusinessDomainByName(businessDomainName);
-            BusinessDomainInstance businessDomainInstance = new BusinessDomainInstance();
-            businessDomainInstance.setBusinessDomain(businessDomain);
+            BusinessDomainInstance instance = new BusinessDomainInstance();
+            instance.setBusinessDomain(businessDomain);
 
-            businessDomainInstanceService.createBusinessDomainInstance(businessDomainInstance);
+            return businessDomainInstanceService.createBusinessDomainInstance(instance);
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
         }
+
+        //TODO change this return to one that handles the exception message
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{businessDomainInstanceId}")

@@ -2,6 +2,7 @@ package br.com.xyinc.repository;
 
 import br.com.xyinc.model.BusinessDomain;
 import br.com.xyinc.model.BusinessDomainInstance;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +25,26 @@ public class BusinessDomainInstanceRepositoryTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    private BusinessDomainInstanceRepository businessDomainInstanceRepository;
+    private BusinessDomainInstanceRepository repository;
 
-    @Test
-    public void whenFindByIdThenReturnBusinessDomainInstance() {
+    private BusinessDomainInstance instance;
+
+    @Before
+    public void setUp() {
         BusinessDomain businessDomain = new BusinessDomain();
         businessDomain.setName("pencil");
         entityManager.persist(businessDomain);
         entityManager.flush();
 
-        BusinessDomainInstance instance = new BusinessDomainInstance();
+        instance = new BusinessDomainInstance();
         instance.setBusinessDomain(businessDomain);
         entityManager.persist(instance);
         entityManager.flush();
+    }
 
-        BusinessDomainInstance found = businessDomainInstanceRepository.
+    @Test
+    public void whenFindByIdThenReturnBusinessDomainInstance() {
+        BusinessDomainInstance found = repository.
                 findById(instance.getId());
 
         assertThat(found.getId()).isEqualTo(instance.getId());
@@ -46,17 +52,7 @@ public class BusinessDomainInstanceRepositoryTest {
 
     @Test
     public void whenFindByBusinessDomainThenReturnBusinessDomainInstance() {
-        BusinessDomain businessDomain = new BusinessDomain();
-        businessDomain.setName("pencil");
-        entityManager.persist(businessDomain);
-        entityManager.flush();
-
-        BusinessDomainInstance instance = new BusinessDomainInstance();
-        instance.setBusinessDomain(businessDomain);
-        entityManager.persist(instance);
-        entityManager.flush();
-
-        List<BusinessDomainInstance> foundList = businessDomainInstanceRepository.
+        List<BusinessDomainInstance> foundList = repository.
                 findByBusinessDomain(instance.getBusinessDomain());
 
         assertThat(foundList.size()).isEqualTo(1);

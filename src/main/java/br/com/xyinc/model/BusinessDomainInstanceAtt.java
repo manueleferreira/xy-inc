@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class BusinessDomainInstanceAtt implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private long id;
 
     private String attValue;
 
@@ -51,7 +51,7 @@ public class BusinessDomainInstanceAtt implements Serializable {
     @JsonIgnore
     @Id
     @GeneratedValue
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -63,7 +63,7 @@ public class BusinessDomainInstanceAtt implements Serializable {
         this.businessDomainInstance = businessDomainInstance;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

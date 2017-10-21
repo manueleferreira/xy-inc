@@ -14,13 +14,13 @@ public class BusinessDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private long id;
 
     private String name;
 
     @Id
     @GeneratedValue
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -33,7 +33,7 @@ public class BusinessDomain implements Serializable {
         this.name = name;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

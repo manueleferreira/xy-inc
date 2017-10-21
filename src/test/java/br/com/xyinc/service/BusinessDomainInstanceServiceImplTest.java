@@ -74,7 +74,7 @@ public class BusinessDomainInstanceServiceImplTest {
 
         Assert.assertNotNull(found);
         Assert.assertEquals(1, found.size());
-        assertThat(found.get(0).getBusinessDomain().getId()).isEqualTo(1L);
+        assertThat(found.get(0).getBusinessDomain().getId()).isEqualTo(instance.getId());
     }
 
     @Test

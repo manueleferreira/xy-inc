@@ -15,7 +15,7 @@ public class BusinessDomainInstance  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private long id;
 
     private BusinessDomain businessDomain;
 
@@ -36,7 +36,7 @@ public class BusinessDomainInstance  implements Serializable {
 
     @Id
     @GeneratedValue
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -48,7 +48,7 @@ public class BusinessDomainInstance  implements Serializable {
         this.businessDomainInstanceAtts = businessDomainInstanceAtts;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
