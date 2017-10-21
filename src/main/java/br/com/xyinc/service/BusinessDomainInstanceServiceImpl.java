@@ -3,7 +3,6 @@ package br.com.xyinc.service;
 import br.com.xyinc.model.BusinessDomain;
 import br.com.xyinc.model.BusinessDomainInstance;
 import br.com.xyinc.repository.BusinessDomainInstanceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +22,9 @@ public class BusinessDomainInstanceServiceImpl implements BusinessDomainInstance
     }
 
     @Override
-    public void createBusinessDomainInstance(BusinessDomainInstance instance)
+    public BusinessDomainInstance createBusinessDomainInstance(BusinessDomainInstance instance)
     {
-        this.businessDomainInstanceRepository.save(instance);
+        return this.businessDomainInstanceRepository.save(instance);
     }
 
     @Transactional(readOnly = true)

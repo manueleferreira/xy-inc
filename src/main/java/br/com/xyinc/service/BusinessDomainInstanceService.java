@@ -16,7 +16,7 @@ public interface BusinessDomainInstanceService {
 
     BusinessDomainInstance getBusinessDomainInstanceById(Long businessDomainInstanceId);
 
-    void createBusinessDomainInstance(BusinessDomainInstance businessDomainInstance);
+    BusinessDomainInstance createBusinessDomainInstance(BusinessDomainInstance businessDomainInstance);
 
     void deleteBusinessDomainInstanceById(Long businessDomainInstanceId);
 

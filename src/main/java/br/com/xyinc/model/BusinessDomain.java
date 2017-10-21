@@ -36,4 +36,5 @@ public class BusinessDomain implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
 }
