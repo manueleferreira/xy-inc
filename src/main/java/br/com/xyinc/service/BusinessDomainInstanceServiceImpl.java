@@ -43,4 +43,8 @@ public class BusinessDomainInstanceServiceImpl implements BusinessDomainInstance
         this.businessDomainInstanceRepository.delete(id);
     }
 
+    @Transactional
+    public void updateBusinessDomainInstance(BusinessDomainInstance instance) {
+        this.businessDomainInstanceRepository.save(instance);
+    }
 }

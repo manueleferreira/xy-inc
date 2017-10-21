@@ -53,7 +53,6 @@ public class BusinessDomainInstanceController {
         {
             log.debug(" criando do dominio: {} ", businessDomainName);
             BusinessDomain businessDomain = businessDomainService.getBusinessDomainByName(businessDomainName);
-//            BusinessDomainInstance instance = new BusinessDomainInstance();
             instance.setBusinessDomain(businessDomain);
 
             return businessDomainInstanceService.createBusinessDomainInstance(instance);
@@ -76,4 +75,13 @@ public class BusinessDomainInstanceController {
         businessDomainInstanceService.deleteBusinessDomainInstanceById(businessDomainInstanceId);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(method = RequestMethod.PUT, value = "/{businessDomainInstanceId}")
+    public void updateBusinessDomainInstanceById(@PathVariable String businessDomainName,
+                                                 @PathVariable Long businessDomainInstanceId,
+                                                 @RequestBody BusinessDomainInstance instance) {
+
+        log.debug("editando instancia do dominio: {} id: {}", businessDomainName, businessDomainInstanceId);
+        businessDomainInstanceService.updateBusinessDomainInstance(instance);
+    }
 }

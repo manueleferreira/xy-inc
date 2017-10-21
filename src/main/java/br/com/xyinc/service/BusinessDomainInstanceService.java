@@ -20,4 +20,6 @@ public interface BusinessDomainInstanceService {
 
     void deleteBusinessDomainInstanceById(Long businessDomainInstanceId);
 
+    void updateBusinessDomainInstance(BusinessDomainInstance businessDomainInstance);
+
 }

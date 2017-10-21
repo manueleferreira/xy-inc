@@ -116,8 +116,6 @@ public class BusinessDomainInstanceControllerTest {
         att.setBusinessDomainAtt(modeltt);
 
         BusinessDomainInstance created = new BusinessDomainInstance();
-        created.setBusinessDomain(businessDomain);
-        created.setId(id);
         created.setBusinessDomainInstanceAtts(Arrays.asList(att));
 
         byte[] createdJson = toJson(created);
@@ -135,7 +133,36 @@ public class BusinessDomainInstanceControllerTest {
                     .andExpect(jsonPath("$.id", notNullValue()))
                     .andExpect(jsonPath("$.attributes", hasSize(1)))
                     .andExpect(jsonPath("$.attributes[0].businessDomainAtt.name", is(modeltt.getName())))
+                    .andExpect(jsonPath("$.attributes[0].businessDomainAtt.type", is(modeltt.getType())))
                     .andExpect(jsonPath("$.attributes[0].attValue", is(att.getAttValue())));
+    }
+
+    @Test
+    public void givenBusinessModelWhenUpdateInstanceThenReturnNothing() throws Exception
+    {
+        BusinessDomainAtt modeltt = new BusinessDomainAtt();
+        modeltt.setName("name");
+        modeltt.setType("String");
+        modeltt.setBusinessDomain(businessDomain);
+
+        BusinessDomainInstanceAtt att = new BusinessDomainInstanceAtt();
+        att.setAttValue("Maria");
+        att.setBusinessDomainAtt(modeltt);
+
+        BusinessDomainInstance updated = new BusinessDomainInstance();
+        updated.setBusinessDomainInstanceAtts(Arrays.asList(att));
+
+        byte[] updatedJson = toJson(updated);
+
+        given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
+        doNothing().when(instanceService).updateBusinessDomainInstance(Matchers.any(BusinessDomainInstance.class));
+
+        mvc.perform(MockMvcRequestBuilders.put(String.format("/%s/%s", businessModelName, id))
+                .content(updatedJson)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent())
+                .andReturn();
     }
 
     @Test
