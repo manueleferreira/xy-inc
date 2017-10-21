@@ -98,4 +98,16 @@ public class BusinessDomainInstanceServiceImplTest {
 
         verify(repository, times(1)).delete(id);
     }
+
+    @Test
+    public void whenvalidBusinessModelInstanceExistsThenShoulBeUpdated() {
+        given(repository.save(instance)).willReturn(instance);
+
+        BusinessDomainInstanceRepository my =
+                Mockito.mock(BusinessDomainInstanceRepository.class);
+
+        businessDomainInstanceService.updateBusinessDomainInstance(instance);
+
+        verify(repository, times(1)).save(instance);
+    }
 }
