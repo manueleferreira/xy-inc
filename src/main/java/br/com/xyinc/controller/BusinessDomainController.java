@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by manuele on 18/10/17.
  */
@@ -20,6 +22,14 @@ public class BusinessDomainController {
 
     @Autowired
     private BusinessDomainService businessDomainService;
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<BusinessDomain> getAllBusinessDomain()
+    {
+        log.debug(" Consultando modelos: ");
+        return businessDomainService.getAllBusinessDomains();
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)

@@ -1,9 +1,12 @@
 package br.com.xyinc.service;
 
 import br.com.xyinc.model.BusinessDomain;
+import br.com.xyinc.model.BusinessDomainInstance;
 import br.com.xyinc.repository.BusinessDomainRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by manuele on 18/10/17.
@@ -22,6 +25,12 @@ public class BusinessDomainServiceImpl implements BusinessDomainService {
     public BusinessDomain getBusinessDomainByName(String name)
     {
         return this.businessDomainRepository.findByName(name);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BusinessDomain> getAllBusinessDomains()
+    {
+        return this.businessDomainRepository.findAll();
     }
 
     @Override

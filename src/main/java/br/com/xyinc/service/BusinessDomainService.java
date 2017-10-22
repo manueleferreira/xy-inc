@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface BusinessDomainService {
 
+    List<BusinessDomain> getAllBusinessDomains();
+
     BusinessDomain getBusinessDomainByName(String name);
 
     BusinessDomain createBusinessDomain(BusinessDomain businessDomain);
