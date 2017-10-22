@@ -1,10 +1,10 @@
 package br.com.xyinc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by manuele on 18/10/17.
@@ -18,6 +18,8 @@ public class BusinessDomain implements Serializable {
 
     private String name;
 
+    private List<BusinessDomainAtt> businessDomainAtts;
+
     @Id
     @GeneratedValue
     public long getId() {
@@ -29,6 +31,12 @@ public class BusinessDomain implements Serializable {
         return name;
     }
 
+    @JsonProperty("attributes")
+    @OneToMany(mappedBy = "businessDomain", cascade = CascadeType.ALL)
+    public List<BusinessDomainAtt> getBusinessDomainAtts() {
+        return businessDomainAtts;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -37,4 +45,7 @@ public class BusinessDomain implements Serializable {
         this.id = id;
     }
 
+    public void setBusinessDomainAtts(List<BusinessDomainAtt> businessDomainAtts) {
+        this.businessDomainAtts = businessDomainAtts;
+    }
 }

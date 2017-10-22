@@ -4,10 +4,9 @@ import br.com.xyinc.model.BusinessDomain;
 import br.com.xyinc.model.BusinessDomainAtt;
 import br.com.xyinc.model.BusinessDomainInstance;
 import br.com.xyinc.model.BusinessDomainInstanceAtt;
+import br.com.xyinc.repository.JsonUtil;
 import br.com.xyinc.service.BusinessDomainInstanceService;
 import br.com.xyinc.service.BusinessDomainService;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,9 +46,6 @@ public class BusinessDomainInstanceControllerTest {
     @MockBean
     private BusinessDomainService service;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
     private String businessModelName;
     private long id;
     private BusinessDomainInstance instance;
@@ -62,7 +58,7 @@ public class BusinessDomainInstanceControllerTest {
 
         businessDomain = new BusinessDomain();
         businessDomain.setId(id);
-        businessDomain.setName("pencil");
+        businessDomain.setName(businessModelName);
 
         instance = new BusinessDomainInstance();
         instance.setId(id);
@@ -98,11 +94,6 @@ public class BusinessDomainInstanceControllerTest {
                 .andExpect(jsonPath("$.id", is((int)instance.getId())));
     }
 
-    private byte[] toJson(Object r) throws Exception {
-        ObjectMapper map = new ObjectMapper();
-        return map.writeValueAsString(r).getBytes();
-    }
-
     @Test
     public void givenBusinessModelWhenCreateInstanceThenReturnJsonObject() throws Exception
     {
@@ -118,7 +109,7 @@ public class BusinessDomainInstanceControllerTest {
         BusinessDomainInstance created = new BusinessDomainInstance();
         created.setBusinessDomainInstanceAtts(Arrays.asList(att));
 
-        byte[] createdJson = toJson(created);
+        byte[] createdJson = JsonUtil.toJson(created);
 
         given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
         given(instanceService.createBusinessDomainInstance(
@@ -152,7 +143,7 @@ public class BusinessDomainInstanceControllerTest {
         BusinessDomainInstance updated = new BusinessDomainInstance();
         updated.setBusinessDomainInstanceAtts(Arrays.asList(att));
 
-        byte[] updatedJson = toJson(updated);
+        byte[] updatedJson = JsonUtil.toJson(updated);
 
         given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
         doNothing().when(instanceService).updateBusinessDomainInstance(Matchers.any(BusinessDomainInstance.class));

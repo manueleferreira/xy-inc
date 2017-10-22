@@ -13,4 +13,8 @@ public interface BusinessDomainService {
 
     BusinessDomain getBusinessDomainByName(String name);
 
+    BusinessDomain createBusinessDomain(BusinessDomain businessDomain);
+
+    void deleteBusinessDomainById(Long businessDomainId);
+
 }
