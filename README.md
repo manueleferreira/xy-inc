@@ -18,7 +18,7 @@ Tecnologias:
 
 ## Usage
 * Configurar projeto
- * [Instalar Maven](http://maven.apache.org/install.html)
+ * [Instalar Maven](http://maven.apache.org/install.html) ou usar um [container docker](https://hub.docker.com/_/maven/)
  * Acessar raiz do diretório do projeto
  * Executar aplicação + testes: mvn install
  * Rodar instância local: mvn spring-boot:run
