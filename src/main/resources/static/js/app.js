@@ -29,8 +29,9 @@ app.controller('RunController', ['BusinessModelsService', '$scope',
         $scope.addData = function() {
             $scope.form.attributes = $scope.attributes;
             BusinessModelsService.create($scope.form).then(function (response) {
-                $scope.gridOptions.data = response.data;
                 $scope.form = '';
+                $scope.attributes = [{key: 'choice1'}];
+                $scope.load();
             });
         };
 
