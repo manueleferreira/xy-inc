@@ -1,20 +1,21 @@
 # xy-inc
 Aplicação que, dado um modelo de domínio com nome e 
 atributos, realiza a criação e disponibilização de um
-conjunto de serviços REST.
+conjunto de serviços para um recurso.
 
 ## Arquitetura
-Arquitetura baseada na linguagem Java.
+Os detalhamentos sobre a arquitetura e decisões de projeto estão descritos 
+no documento de [arquitetura do projeto](docs/architecture.md). 
 
 Tecnologias:
 * Java: Linguagem base de desenvolvimento
 * Libraries:
- * Spring Boot: Framework Java para desenvolvimento Web (Spring MVC)
- * Maven: Gerenciador de dependências
- * Flyway: Gerenciamento de versionamento da base
- * H2: Database Embedded
- * JUnit: Testes unitários
- * MockMvc: Teste integração
+  * Spring Boot: Framework Java para desenvolvimento Web (Spring MVC)
+  * Maven: Gerenciador de dependências
+  * Flyway: Gerenciamento de versionamento da base
+  * H2: Database Embedded
+  * JUnit: Testes unitários
+  * MockMvc: Teste integração
 
 ## Usage
 * Configurar projeto
