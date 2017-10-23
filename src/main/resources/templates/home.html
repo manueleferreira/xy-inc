@@ -2,7 +2,6 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
     <head>
         <title>Business Domain API Generator</title>
 
@@ -24,20 +23,29 @@
         <script src="js/services.js"></script>
     </head>
 
-    dfuisbdfiubsduifbsdiubi
-
     <body ng-app="uigrid" ng-controller="RunController">
-    <div class="container">
-        <h4>Modelos:</h4>
-        <div ui-grid="gridOptions" class="grid"></div>
+        <div class="container">
+            <h4>Modelos:</h4>
+            <div ui-grid="gridOptions" class="grid"></div>
 
-        <h4>Quer criar um modelo novo? Coloque o nome aqui:</h4>
-        <form method="post" class="form-create" ng-submit="addData()">
-            <input type="text" ng-model="name" id="inputName" class="form-control" placeholder="name" name="name" required="" autofocus="" />
-            <span class="input-group-btn">
-                <input type="submit" class="btn btn-primary" value="create"/>
-            </span>
-        </form>
-    </div>
+            <h4>Quer criar um modelo novo? Preencha os dados:</h4>
+            <form method="post" class="form-create" ng-submit="addData()">
+                <input type="text" ng-model="form.name" id="inputName" class="form-control" placeholder="name" name="name" required="" autofocus=""></input>
+                <fieldset  data-ng-repeat="attribute in attributes">
+                    <select ng-model="attribute.type">
+                        <option value="string">String</option>
+                        <option value="decimal">Decimal</option>
+                        <option value="int">Int</option>
+                        <option value="date">Date</option>
+                    </select>
+                    <input type="text" ng-model="attribute.name" name="" placeholder="Nome Atributo"></input>
+                    <button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+                </fieldset>
+                <button type="button" class="addfields" ng-click="addNewChoice()">Adicionar Novo Atributo</button>
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-primary" value="create"></input>
+                </span>
+            </form>
+        </div>
     </body>
 </html>

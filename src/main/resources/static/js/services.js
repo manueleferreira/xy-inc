@@ -4,12 +4,15 @@
 
     function BusinessModelsService($http) {
         var self = this;
-        var baseUrl = 'http://localhost:8080/businessmodel';
+        var baseUrl = 'http://localhost:8080/businessdomain';
 
         self.readAll = function () {
             return $http({
                 method: 'GET',
-                url: baseUrl
+                url: baseUrl,
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
             }).then(function (response) {
                 return response;
             });
@@ -19,26 +22,10 @@
             return $http({
                 method: 'POST',
                 url: baseUrl,
-                data: data
-            }).then(function (response) {
-                return response;
-            });
-        };
-
-        self.readOne = function (id) {
-            return $http({
-                method: 'GET',
-                url: baseUrl + '/' + id
-            }).then(function (response) {
-                return response;
-            });
-        };
-
-        self.update = function (id, data) {
-            return $http({
-                method: 'PUT',
-                url: baseUrl + '/' + id,
-                data: data
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: angular.toJson(param)
             }).then(function (response) {
                 return response;
             });
@@ -47,6 +34,9 @@
         self.delete = function (id) {
             return $http({
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
                 url: baseUrl + '/' + id
             });
         };

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by manuele on 18/10/17.
  */
 @RestController
-@RequestMapping("/{businessDomainName}")
+@RequestMapping(value = "api/{businessDomainName}", headers = "Accept=application/json")
 public class BusinessDomainInstanceController {
 
     private static final Logger log = LoggerFactory.getLogger(BusinessDomainInstanceController.class);

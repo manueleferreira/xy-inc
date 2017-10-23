@@ -1,5 +1,6 @@
 package br.com.xyinc.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class BusinessDomain implements Serializable {
     }
 
     @JsonProperty("attributes")
+    @JsonManagedReference
     @OneToMany(mappedBy = "businessDomain", cascade = CascadeType.ALL)
     public List<BusinessDomainAtt> getBusinessDomainAtts() {
         return businessDomainAtts;

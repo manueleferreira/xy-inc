@@ -75,7 +75,7 @@ public class BusinessDomainInstanceControllerTest {
         given(instanceService.getAllInstancesByBusinessDomain(businessDomain))
                 .willReturn(instances);
 
-        mvc.perform(MockMvcRequestBuilders.get(String.format("/%s", businessModelName))
+        mvc.perform(MockMvcRequestBuilders.get(String.format("/api/%s", businessModelName))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -88,7 +88,7 @@ public class BusinessDomainInstanceControllerTest {
     {
         given(instanceService.getBusinessDomainInstanceById(id)).willReturn(instance);
 
-        mvc.perform(MockMvcRequestBuilders.get(String.format("/%s/%s", businessModelName, instance.getId()))
+        mvc.perform(MockMvcRequestBuilders.get(String.format("/api/%s/%s", businessModelName, instance.getId()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is((int)instance.getId())));
@@ -116,7 +116,7 @@ public class BusinessDomainInstanceControllerTest {
                 Matchers.any(BusinessDomainInstance.class)))
                 .willReturn(created);
 
-        mvc.perform(MockMvcRequestBuilders.post(String.format("/%s", businessModelName))
+        mvc.perform(MockMvcRequestBuilders.post(String.format("/api/%s", businessModelName))
                     .content(createdJson)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
@@ -148,7 +148,7 @@ public class BusinessDomainInstanceControllerTest {
         given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
         doNothing().when(instanceService).updateBusinessDomainInstance(Matchers.any(BusinessDomainInstance.class));
 
-        mvc.perform(MockMvcRequestBuilders.put(String.format("/%s/%s", businessModelName, id))
+        mvc.perform(MockMvcRequestBuilders.put(String.format("/api/%s/%s", businessModelName, id))
                 .content(updatedJson)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -162,7 +162,7 @@ public class BusinessDomainInstanceControllerTest {
         given(service.getBusinessDomainByName(businessModelName)).willReturn(businessDomain);
         doNothing().when(instanceService).deleteBusinessDomainInstanceById(id);
 
-        mvc.perform(MockMvcRequestBuilders.delete(String.format("/%s/%s", businessModelName, id))
+        mvc.perform(MockMvcRequestBuilders.delete(String.format("/api/%s/%s", businessModelName, id))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }

@@ -1,5 +1,7 @@
 package br.com.xyinc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -24,6 +26,7 @@ public class BusinessDomainAtt implements Serializable {
         return name;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ID")
     public BusinessDomain getBusinessDomain() {
