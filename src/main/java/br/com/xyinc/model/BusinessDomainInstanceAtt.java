@@ -1,5 +1,6 @@
 package br.com.xyinc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,32 +22,24 @@ public class BusinessDomainInstanceAtt implements Serializable {
 
     private BusinessDomainAtt businessDomainAtt;
 
-    @JsonIgnore
+    @JsonBackReference
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_INSTANCE_ID")
     public BusinessDomainInstance getBusinessDomainInstance() {
         return businessDomainInstance;
     }
 
-//    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false, name = "BUSINESS_DOMAIN_ATT_ID")
     public BusinessDomainAtt getbusinessDomainAtt() {
         return businessDomainAtt;
     }
 
-//    @JsonIgnore
     @Column(nullable = false)
     public String getAttValue() {
         return attValue;
     }
-
-//    @Transient
-//    @JsonProperty("att")
-//    public String getAttNameAndValue() {
-//        String attName = getbusinessDomainAtt().getName();
-//        return String.format("%s : %s", attName, getAttValue());
-//    }
 
     @JsonIgnore
     @Id
