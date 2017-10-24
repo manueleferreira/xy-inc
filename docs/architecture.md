@@ -46,7 +46,7 @@ que sejam criados, a forma de requisição será feita da mesma forma.
 Foi utilizado como base o framework Spring Boot para o desenvolvimento do sistema.
 Nessa versão do sistema foi utilizada a versão do servidor de aplicação Tomcat incorporada. 
 Além disso, foi utilizado o banco de dados H2, também incorporado. Como o Spring Boot é bem
- componentizado. A substituição do servidor de aplicação atual e o banco de dados por um mais 
+ componentizado,  substituição do servidor de aplicação atual e o banco de dados por um mais 
  robusto, somente vão necessitar de algumas configurações básicas nos arquivos de inicialização e
  configurações da aplicação.
  
