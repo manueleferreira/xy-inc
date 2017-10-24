@@ -62,6 +62,9 @@ Além disso, foi utilizado o banco de dados H2, também incorporado. Como o Spri
  
  ##### Modelo de Banco de Dados
  
+ O versionamento da base de dados utiliza como base a ferramenta Flyway. Dessa forma, conseguimos manter
+ consistência e coerência das mudanças da base de dados com a versão do código que estejamos trabalhando.
+ 
   ![Arquitetura Sistema](databaseModel.png)
  
  #### Front-end
