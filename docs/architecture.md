@@ -60,6 +60,10 @@ Além disso, foi utilizado o banco de dados H2, também incorporado. Como o Spri
  garantir a confiabilidade e consistência do sistema. A cobertura dos testes foi avaliada utilizando
   a ferramenta de cobertura incorporada a IDE IntelliJ.
  
+ ##### Modelo de Banco de Dados
+ 
+  ![Arquitetura Sistema](databaseModel.png)
+ 
  #### Front-end
  
 O front-end do sistema foi desenvolvido utilizando o framework javascript angular MVC e
