@@ -23,3 +23,5 @@ Tecnologias:
  * Acessar raiz do diretório do projeto
  * Executar aplicação + testes: mvn install
  * Rodar instância local: mvn spring-boot:run
+ 
+ Interface principal web: http://localhost:8080
