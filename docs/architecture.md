@@ -82,4 +82,7 @@ a biblioteca bootstrap. Essas tecnologias em conjunto trazaem agilidade no desen
 e tornam mais fácil a manutenção, uma vez que o código fica mais limpo e fácil de
 utilizar.
 
+ #### Modelos
+ Os modelos podem ser editados através do acesso dos arquivos databaseModel e architecture.xml usando a aplicação (draw.io)[https://www.draw.io/]
+
  
