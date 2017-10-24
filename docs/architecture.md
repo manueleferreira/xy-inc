@@ -37,12 +37,12 @@ http://localhost:8080/api/<nome_modelo>/<id> GET Retorna a instância deste mode
 http://localhost:8080/api/<nome_modelo> POST Cria uma instância deste modelo de domínio
 
 Exemplo body:
-{"attributes":[{"attValue":"Jose","businessDomainAtt":{"id":1,"name":"name","type":"String"}}]}
+{"attributes":[{"attValue":"Jose","businessDomainAtt":{"id":1}}]}
 
 http://localhost:8080/api/<nome_modelo> PUT Edita uma instância deste modelo de domínio
 
 Exemplo body:
-{"attributes":[{"id": 1, "attValue":"Jose","businessDomainAtt":{"id":1,"name":"name","type":"String"}}]}
+{"attributes":[{"id": 1, "attValue":"Jose","businessDomainAtt":{"id":1}}]}
 
 http://localhost:8080/api/<nome_modelo>/<id> DELETE Deleta uma instância do modelos cadastrado por ID
 ```
