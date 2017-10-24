@@ -1,7 +1,9 @@
 package br.com.xyinc.controller;
 
 import br.com.xyinc.model.BusinessDomain;
+import br.com.xyinc.model.BusinessDomainAtt;
 import br.com.xyinc.model.BusinessDomainInstance;
+import br.com.xyinc.model.BusinessDomainInstanceAtt;
 import br.com.xyinc.service.BusinessDomainInstanceService;
 import br.com.xyinc.service.BusinessDomainService;
 import org.slf4j.Logger;
@@ -82,6 +84,10 @@ public class BusinessDomainInstanceController {
                                                  @RequestBody BusinessDomainInstance instance) {
 
         log.debug("editando instancia do dominio: {} id: {}", businessDomainName, businessDomainInstanceId);
+        BusinessDomain businessDomain = businessDomainService.getBusinessDomainByName(businessDomainName);
+        instance.setId(businessDomainInstanceId);
+        instance.setBusinessDomain(businessDomain);
+
         businessDomainInstanceService.updateBusinessDomainInstance(instance);
     }
 }

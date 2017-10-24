@@ -38,12 +38,12 @@ public class BusinessDomainInstanceServiceImpl implements BusinessDomainInstance
         return this.businessDomainInstanceRepository.findById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public void deleteBusinessDomainInstanceById(Long id) {
         this.businessDomainInstanceRepository.delete(id);
     }
 
-    @Transactional
+    @Override
     public void updateBusinessDomainInstance(BusinessDomainInstance instance) {
         this.businessDomainInstanceRepository.save(instance);
     }

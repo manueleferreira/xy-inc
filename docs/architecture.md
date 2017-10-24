@@ -35,8 +35,16 @@ serviços para criação, update, deleção e consulta.
 http://localhost:8080/api/<nome_modelo> GET Retorna a lista de instâncias deste modelo cadastrado
 http://localhost:8080/api/<nome_modelo>/<id> GET Retorna a instância deste modelo cadastrado por ID
 http://localhost:8080/api/<nome_modelo> POST Cria uma instância deste modelo de domínio
-http://localhost:8080/api/<nome_modelo>/<id> DELETE Deleta uma instância do modelos cadastrado por ID
+
+Exemplo body:
+{"attributes":[{"attValue":"Jose","businessDomainAtt":{"id":1,"name":"name","type":"String"}}]}
+
 http://localhost:8080/api/<nome_modelo> PUT Edita uma instância deste modelo de domínio
+
+Exemplo body:
+{"attributes":[{"id": 1, "attValue":"Jose","businessDomainAtt":{"id":1,"name":"name","type":"String"}}]}
+
+http://localhost:8080/api/<nome_modelo>/<id> DELETE Deleta uma instância do modelos cadastrado por ID
 ```
 
 Ambas as APIs são REST, Stateless e permitem requisições Json para retorno dos dados. A estrutura montada

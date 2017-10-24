@@ -41,7 +41,7 @@ public class BusinessDomainInstanceAtt implements Serializable {
         return attValue;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     @Id
     @GeneratedValue
     public long getId() {
