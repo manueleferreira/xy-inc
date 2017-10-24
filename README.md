@@ -15,7 +15,7 @@ Tecnologias:
   * [Flyway](https://flywaydb.org/): Gerenciamento de versionamento da base
   * [H2](http://www.h2database.com/html/main.html): Database Embedded
   * [JUnit](http://junit.org): Testes unitários
-  * MockMvc: Teste integração
+  * MockMvc: Suíte de Testes
 
 ## Usage
 * Configurar projeto
